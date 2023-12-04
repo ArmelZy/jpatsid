@@ -1,6 +1,7 @@
 package com.iqera.cop.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import com.iqera.cop.IntegrationTest;
 import com.iqera.cop.domain.User;
