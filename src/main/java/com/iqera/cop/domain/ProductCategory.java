@@ -1,6 +1,7 @@
 package com.iqera.cop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iqera.cop.tsid.Tsid;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -21,8 +22,7 @@ public class ProductCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @Tsid
     @Column(name = "id")
     private Long id;
 

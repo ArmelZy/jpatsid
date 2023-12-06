@@ -4,7 +4,6 @@ entity Product {
     description String
     price BigDecimal required min(0)
     productSize Size required
-    image ImageBlob
 }
 
 entity WishList {
