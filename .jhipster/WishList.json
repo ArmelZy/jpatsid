@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20231204055503",
+  "entityTableName": "wish_list",
+  "fields": [
+    {
+      "fieldName": "numberOfElement",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "WishList",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "phone",
+      "otherEntityName": "customerDetails",
+      "relationshipName": "customerDetails",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "wishList",
+      "relationshipName": "product",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

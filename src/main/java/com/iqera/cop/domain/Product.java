@@ -1,0 +1,233 @@
+package com.iqera.cop.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iqera.cop.domain.enumeration.Size;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ * Product sold by the Online store
+ */
+@Schema(description = "Product sold by the Online store")
+@Entity
+@Table(name = "product")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
+    private Long id;
+
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @NotNull
+    @DecimalMin(value = "0")
+    @Column(name = "price", precision = 21, scale = 2, nullable = false)
+    private BigDecimal price;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_size", nullable = false)
+    private Size productSize;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_product__wish_list",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "wish_list_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "customerDetails", "products" }, allowSetters = true)
+    private Set<WishList> wishLists = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
+    private ProductCategory productCategory;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Product id(Long id) {
+        this.setId(id);
+        return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Product name(String name) {
+        this.setName(name);
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Product description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+    public Product price(BigDecimal price) {
+        this.setPrice(price);
+        return this;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Size getProductSize() {
+        return this.productSize;
+    }
+
+    public Product productSize(Size productSize) {
+        this.setProductSize(productSize);
+        return this;
+    }
+
+    public void setProductSize(Size productSize) {
+        this.productSize = productSize;
+    }
+
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Product image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Product imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
+    public Set<WishList> getWishLists() {
+        return this.wishLists;
+    }
+
+    public void setWishLists(Set<WishList> wishLists) {
+        this.wishLists = wishLists;
+    }
+
+    public Product wishLists(Set<WishList> wishLists) {
+        this.setWishLists(wishLists);
+        return this;
+    }
+
+    public Product addWishList(WishList wishList) {
+        this.wishLists.add(wishList);
+        return this;
+    }
+
+    public Product removeWishList(WishList wishList) {
+        this.wishLists.remove(wishList);
+        return this;
+    }
+
+    public ProductCategory getProductCategory() {
+        return this.productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public Product productCategory(ProductCategory productCategory) {
+        this.setProductCategory(productCategory);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Product)) {
+            return false;
+        }
+        return getId() != null && getId().equals(((Product) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Product{" +
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", price=" + getPrice() +
+            ", productSize='" + getProductSize() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
+            "}";
+    }
+}

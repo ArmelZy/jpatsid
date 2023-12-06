@@ -48,6 +48,17 @@ public class CacheConfiguration {
             createCache(cm, com.iqera.cop.domain.User.class.getName());
             createCache(cm, com.iqera.cop.domain.Authority.class.getName());
             createCache(cm, com.iqera.cop.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.iqera.cop.domain.Product.class.getName());
+            createCache(cm, com.iqera.cop.domain.Product.class.getName() + ".wishLists");
+            createCache(cm, com.iqera.cop.domain.WishList.class.getName());
+            createCache(cm, com.iqera.cop.domain.WishList.class.getName() + ".products");
+            createCache(cm, com.iqera.cop.domain.ProductCategory.class.getName());
+            createCache(cm, com.iqera.cop.domain.ProductCategory.class.getName() + ".products");
+            createCache(cm, com.iqera.cop.domain.CustomerDetails.class.getName());
+            createCache(cm, com.iqera.cop.domain.CustomerDetails.class.getName() + ".carts");
+            createCache(cm, com.iqera.cop.domain.ShoppingCart.class.getName());
+            createCache(cm, com.iqera.cop.domain.ShoppingCart.class.getName() + ".orders");
+            createCache(cm, com.iqera.cop.domain.ProductOrder.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
